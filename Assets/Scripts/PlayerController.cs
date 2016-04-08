@@ -7,8 +7,10 @@ public class PlayerController : MonoBehaviour
     public float Speed, Sprint, Jump;
     public Rigidbody Player;
     Vector3 movement;
+    public GameObject Search, Beam, Torch;
     int floorMask;
     public float camRayLength;
+    bool BeamMode, TorchMode;
 
     void Awake()
     {  
@@ -17,6 +19,11 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space)) JumpPlayer();
+        if (Input.GetMouseButton(0)) BeamMode = true; else BeamMode = false;
+        if (Input.GetMouseButton(1)) TorchMode = true; else TorchMode = false;
+        if (BeamMode) { Search.SetActive(false); Beam.SetActive(true); }
+        else if (TorchMode) { Search.SetActive(false); Torch.SetActive(true); }
+        else { Search.SetActive(true); Beam.SetActive(false); Torch.SetActive(false); }
     }
     void FixedUpdate()
     {
@@ -37,7 +44,6 @@ public class PlayerController : MonoBehaviour
 
         Player.MovePosition(transform.position + movement);
     }
-   
     void Turning()
     {
         Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
