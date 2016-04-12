@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     Vector3 movement;
     int floorMask;
     public float camRayLength;
+    public float health;
 
     void Awake()
     {  
